@@ -1,7 +1,11 @@
 <?php
-    require_once('./DatabaseConfiguration.php');
-    require_once('./DatabeseConnection.php');
-    require_once('./models/UserModel.php');
+    require_once('core/DatabaseConfiguration.php');
+    require_once('core/DatabeseConnection.php');
+    require_once('models/UserModel.php');
+
+    use App\Core\DatabaseConfiguration;
+    use App\Core\DatabaseConnection;
+    use App\Models\UserModel;
 
     $databaseConfiguration = new DatabaseConfiguration('localhost', 'root', 'root', 'auction_project');
     $databaseConnection = new DatabaseConnection($databaseConfiguration);

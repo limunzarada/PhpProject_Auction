@@ -1,4 +1,10 @@
 <?php
+    namespace App\Models;
+
+    // da bi mogli koristiti DatabaseConnection koji se ne nalazi u ovom imenskom prostoru
+    // moramo da kažemo da koristimo taj fajl
+    use App\Core\DatabaseConnection; // ili ako ćemo bez ovoga, putanju upisujemo tamo gdje je koristimo
+
  class UserModel {
 //sve ono što radimo sa tabelom user, implementiramo u ovoj model
    private $dbc;
@@ -14,7 +20,9 @@
      $res = $prep->execute([$userId]);
      $user = NULL; // početna pretpostavka da nema usera?
      if ($res) {
-       $user = $prep->fetch(PDO::FETCH_OBJ);
+       $user = $prep->fetch(\PDO::FETCH_OBJ);//stavljamo \ ispred PDO jer se klasa PDO nalazi
+                                             // u App\Core ...a to smo već imenovali gore pa je
+                                             // dovoljno samo \
      }
      return $user;
    }
@@ -26,7 +34,7 @@
      $res = $prep->execute();
      $users = [];
      if ($res) {
-       $users = $prep->fetchAll(PDO::FETCH_OBJ);
+       $users = $prep->fetchAll(\PDO::FETCH_OBJ);
      }
      return $users;
    }
@@ -38,7 +46,7 @@
      $res = $prep->execute([$username]);
      $user = NULL;
      if ($res) {
-       $user = $prep->fetch(PDO::FETCH_OBJ);
+       $user = $prep->fetch(\PDO::FETCH_OBJ);
      }
      return $user;
    }
