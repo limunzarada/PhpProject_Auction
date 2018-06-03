@@ -2,15 +2,13 @@
     require_once('core/DatabaseConfiguration.php');
     require_once('core/DatabeseConnection.php');
     require_once('models/UserModel.php');
+    //require_once 'vendor/autoload.php';
 
-    use App\Core\DatabaseConfiguration;
-    use App\Core\DatabaseConnection;
-    use App\Models\UserModel;
 
-    $databaseConfiguration = new DatabaseConfiguration('localhost', 'root', 'root', 'auction_project');
-    $databaseConnection = new DatabaseConnection($databaseConfiguration);
+    $databaseConfiguration = new App\Core\DatabaseConfiguration('localhost', 'root', 'root', 'auction_project');
+    $databaseConnection = new App\Core\DatabaseConnection($databaseConfiguration);
 
-    $userModel = new UserModel($databaseConnection);
+    $userModel = new App\Models\UserModel($databaseConnection);
 
     // $user = $userModel->getAll();
     // print_r($user);
