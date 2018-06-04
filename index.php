@@ -11,7 +11,7 @@
            );
     $databaseConnection = new App\Core\DatabaseConnection($databaseConfiguration);
 
-    $url = filter_input(INPUT_GET, 'URL');
+    $url = strval(filter_input(INPUT_GET, 'URL'));
     $httpMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
 
     $router = new App\Core\Router();
@@ -22,21 +22,16 @@
 
     $route = $router->find($httpMethod, $url);
     $arguments = $route->extractArguments($url);
-    
-    print_r($route);
-    print_r($arguments);
-    exit;
 
-    # Rutiranje!
-    # Smatraćemo da se uvijek traži MainController i njegov metod home
+    $fullControllername = '\\App\\Controllers\\' . $route->getControllerName() . 'Controller';
 
-    $controller = new \App\Controllers\MainController($databaseConnection);
-    $controller->home();
+    $controller = new $fullControllername($databaseConnection);
+    call_user_func_array([$controller, $route->getMethodName()], $arguments);
     $data = $controller->getData();
-    // print_r($data);
+
 
     foreach ($data as $name => $value) {
         $$name = $value;
     }
 
-    require_once 'views/Main/home.php';
+    require_once 'views/' . $route->getControllerName() . '/' . $route->getMethodName() . '.php';
