@@ -10,7 +10,8 @@
     # Smatraćemo da se uvijek traži MainController i njegov metod home
 
     $controller = new \App\Controllers\MainController($databaseConnection);
-    $data = $controller->home();
+    $controller->home();
+    $data = $controller->getData();
     // print_r($data);
 
     foreach ($data as $name => $value) {
