@@ -1,30 +1,20 @@
 <?php
-    // require_once('core/DatabaseConfiguration.php');
-    // require_once('core/DatabeseConnection.php');
-    // require_once('models/UserModel.php');
-    require_once('vendor/autoload.php');
+
+    require_once 'vendor/autoload.php';
 
 
     $databaseConfiguration = new App\Core\DatabaseConfiguration('localhost', 'root', 'root', 'auction_project');
     $databaseConnection = new App\Core\DatabaseConnection($databaseConfiguration);
 
-    $userModel = new App\Models\UserModel($databaseConnection);
+    # Rutiranje!
+    # Smatraćemo da se uvijek traži MainController i njegov metod home
 
-    // $user = $userModel->getAll();
-    // print_r($user);
+    $controller = new \App\Controllers\MainController($databaseConnection);
+    $data = $controller->home();
+    // print_r($data);
 
-    // $user = $userModel->getById(2);
-    // print_r($user);
-
-    $user = $userModel->getByUsername('mariola');
-
-    $message = 'Ovaj korisnik ne postoji!';
-    if ($user !== NULL) {
-      $message = print_r($user, true);
+    foreach ($data as $name => $value) {
+        $$name = $value;
     }
-    echo $message;
 
-
-    $categoryModel = new App\Models\CategoryModel($databaseConnection);
-    $categories = $categoryModel->getAll();
-    print_r($categories);
+    require_once 'views/Main/home.php';
