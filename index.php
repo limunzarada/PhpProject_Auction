@@ -29,9 +29,12 @@
     call_user_func_array([$controller, $route->getMethodName()], $arguments);
     $data = $controller->getData();
 
+    # twig file sistem loader
+    $loader = new Twig_Loader_Filesystem("./views");
+    $twig = new Twig_Environment($loader, [
+        "cache" => "./twig-cache",
+        "auto_reload" => true // ovo se na kraju projekta briše ili podesi na false
+    ]);
 
-    foreach ($data as $name => $value) {
-        $$name = $value;
-    }
-
-    require_once 'views/' . $route->getControllerName() . '/' . $route->getMethodName() . '.php';
+    #twig rendering engine
+    echo $twig->render($route->getControllerName() . '/' . $route->getMethodName() . '.html', $data);

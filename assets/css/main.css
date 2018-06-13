@@ -1,0 +1,18 @@
+main .category {
+     /* width: 120px;
+    height: 120px;  */
+    margin: 0 auto;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+     /* border-radius: 60px;  */
+    display: inline-block;
+    text-align: center;
+    opacity: 0.5;
+}
+main .category:hover {
+    background: orange;
+    opacity: 1.0;
+    border: 3px solid #ccc;
+   /* border-radius: 30px;*/
+    color: green;
+}
